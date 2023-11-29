@@ -43,7 +43,8 @@ void ComplexPlane::zoomIn()
 {
 	m_zoomCount++;
 
-	float x = pow(BASE_WIDTH * BASE_ZOOM, m_zoomCount);
+	//float x = pow(BASE_WIDTH * BASE_ZOOM, m_zoomCount);
+	float x = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
 
 	float y = ((BASE_HEIGHT * m_aspectRatio) * pow(BASE_ZOOM, m_zoomCount));
 
@@ -56,7 +57,8 @@ void ComplexPlane::zoomOut()
 {
 	m_zoomCount--;
 
-	float x = pow(BASE_WIDTH * BASE_ZOOM, m_zoomCount);
+	//float x = pow(BASE_WIDTH * BASE_ZOOM, m_zoomCount);
+	float x = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
 
 	float y = ((BASE_HEIGHT * m_aspectRatio) * pow(BASE_ZOOM, m_zoomCount));
 
@@ -97,7 +99,8 @@ int ComplexPlane::countIterations(Vector2f coord)
 	size_t iterations = 0;
 	std::complex<float> z(coord.x, coord.y);
 
-	while (iterations < maxIterations && std::abs(z) < 2.0) {
+	while (iterations < maxIterations && std::abs(z) < 2.0) 
+	{
 		z = z * z + std::complex<float>(coord.x, coord.y);
 		iterations++;
 	}
@@ -107,9 +110,9 @@ int ComplexPlane::countIterations(Vector2f coord)
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
-	r = (1.0 * count / MAX_ITER) * 255;  //(255 * (count) / (MAX_ITER)); 
-	g = (1.0 * count / MAX_ITER) * 255;//(255 * (count) / (MAX_ITER)); 
-	b = (1.0 * count / MAX_ITER) * 255;//(255 * (count) / (MAX_ITER));
+	r = (1.0 * count / MAX_ITER) * 100;  //(255 * (count) / (MAX_ITER)); 
+	g = (10.0 * count / MAX_ITER) * 255;  //(255 * (count) / (MAX_ITER)); 
+	b = (1.0 * count / MAX_ITER) * 244;  //(255 * (count) / (MAX_ITER));
 }
 
 Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel)
